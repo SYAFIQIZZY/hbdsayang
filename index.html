@@ -1,0 +1,607 @@
+<!doctype html>
+<html lang="id" class="h-full">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Maya Puspita ❤️</title>
+    <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+    <script src="/_sdk/element_sdk.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Great+Vibes&amp;family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&amp;family=Quicksand:wght@300;400;500;600&amp;display=swap"
+        rel="stylesheet">
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        .font-cursive {
+            font-family: 'Great Vibes', cursive;
+        }
+
+        .font-serif {
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .font-body {
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        .app-wrapper {
+            width: 100%;
+            height: 100%;
+            overflow-x: hidden;
+            overflow-y: auto;
+            background: #0a0a1a;
+            scroll-behavior: smooth;
+        }
+
+        /* Stars */
+        .stars-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle var(--dur) ease-in-out infinite alternate;
+        }
+
+        @keyframes twinkle {
+            0% {
+                opacity: 0.1;
+                transform: scale(0.8);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+        }
+
+        /* Floating hearts */
+        .floating-heart {
+            position: fixed;
+            pointer-events: none;
+            z-index: 1;
+            animation: floatUp var(--dur) ease-in forwards;
+            opacity: 0;
+        }
+
+        @keyframes floatUp {
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(1) rotate(0deg);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateY(-400px) scale(0.3) rotate(45deg);
+            }
+        }
+
+        /* Click hearts */
+        .click-heart {
+            position: fixed;
+            pointer-events: none;
+            z-index: 999;
+            animation: clickPop 1s ease-out forwards;
+        }
+
+        @keyframes clickPop {
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(0.5);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateY(-120px) scale(1.5);
+            }
+        }
+
+        /* Falling petals */
+        .petal {
+            position: fixed;
+            pointer-events: none;
+            z-index: 1;
+            font-size: 1.2rem;
+            animation: petalFall var(--dur) linear infinite;
+        }
+
+        @keyframes petalFall {
+            0% {
+                transform: translateY(-20px) rotate(0deg);
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: translateY(calc(100% + 100px)) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Section transitions */
+        .section-hidden {
+            opacity: 0;
+            transform: translateY(60px);
+            transition: all 1s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .section-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Typing cursor */
+        .typing-cursor::after {
+            content: '|';
+            animation: blink 0.7s step-end infinite;
+            color: #f9a8d4;
+        }
+
+        @keyframes blink {
+            50% {
+                opacity: 0;
+            }
+        }
+
+        /* Letter paper */
+        .letter-paper {
+            background: linear-gradient(135deg, #fef9f0 0%, #fdf2e9 50%, #fef9f0 100%);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3), inset 0 0 60px rgba(218, 165, 32, 0.05);
+            border: 1px solid rgba(218, 165, 32, 0.2);
+            position: relative;
+        }
+
+        .letter-paper::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 30px;
+            right: 30px;
+            bottom: 0;
+            background: repeating-linear-gradient(transparent, transparent 31px, rgba(218, 165, 32, 0.08) 31px, rgba(218, 165, 32, 0.08) 32px);
+            pointer-events: none;
+        }
+
+        /* Photo cards */
+        .photo-card {
+            transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s;
+        }
+
+        .photo-card:hover {
+            transform: scale(1.03) rotate(-1deg);
+            box-shadow: 0 20px 50px rgba(244, 114, 182, 0.3);
+        }
+
+        /* Reason cards */
+        .reason-card {
+            transition: transform 0.4s, box-shadow 0.4s;
+        }
+
+        .reason-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(244, 114, 182, 0.2);
+        }
+
+        /* Hero button glow */
+        .glow-btn {
+            animation: glowPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes glowPulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 20px rgba(244, 114, 182, 0.4), 0 0 40px rgba(244, 114, 182, 0.2);
+            }
+
+            50% {
+                box-shadow: 0 0 30px rgba(244, 114, 182, 0.6), 0 0 60px rgba(244, 114, 182, 0.3);
+            }
+        }
+
+        /* Gradient text */
+        .gradient-text {
+            background: linear-gradient(135deg, #f9a8d4, #fbbf24, #f9a8d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% 200%;
+            animation: shimmer 4s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        /* Finale hearts burst */
+        .burst-heart {
+            position: absolute;
+            pointer-events: none;
+            animation: burst var(--dur) ease-out forwards;
+        }
+
+        @keyframes burst {
+            0% {
+                opacity: 1;
+                transform: translate(0, 0) scale(1);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translate(var(--tx), var(--ty)) scale(0);
+            }
+        }
+
+        .gold-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #d4a853, transparent);
+        }
+    </style>
+    <style>
+        body {
+            box-sizing: border-box;
+        }
+    </style>
+    <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+</head>
+
+<body class="h-full">
+    <div class="app-wrapper font-body" id="app"><!-- Stars BG -->
+        <div class="stars-container" id="starsContainer"></div><!-- HERO SECTION -->
+        <section id="heroSection" class="relative flex items-center justify-center text-center px-4"
+            style="min-height:100%; background: linear-gradient(180deg, #0a0a1a 0%, #1a0a2e 50%, #2d1040 100%);">
+            <div class="relative z-10 max-w-2xl mx-auto">
+                <div class="mb-6 text-5xl animate-bounce">
+                    🎂
+                </div>
+                <h1 id="heroTitle" class="font-cursive text-5xl sm:text-7xl gradient-text mb-6 leading-tight">Happy
+                    Birthday, Maya Puspita ❤️</h1>
+                <p id="heroSubtitle" class="font-serif text-lg sm:text-xl text-pink-200 mb-4 italic opacity-90">11 Mei
+                    2002, hari dimana dunia menjadi lebih indah karena kamu lahir</p>
+                <p class="text-pink-300/70 text-sm mb-10">Hari ini adalah hari spesial untuk orang yang paling aku
+                    cintai</p><button id="startBtn"
+                    class="glow-btn px-8 py-3 rounded-full bg-gradient-to-r from-pink-500 to-rose-400 text-white font-semibold text-lg tracking-wide hover:from-pink-400 hover:to-rose-300 transition-all duration-300 cursor-pointer">
+                    ✨ Klik untuk mulai ✨ </button>
+            </div>
+        </section><!-- CONTENT (hidden until start) -->
+        <div id="contentSections" class="hidden"><!-- LOVE MESSAGE -->
+            <section class="relative py-20 px-4" style="background: linear-gradient(180deg, #2d1040 0%, #1a0a2e 100%);">
+                <div class="max-w-2xl mx-auto section-hidden" id="msgSection">
+                    <div class="text-center mb-10"><span class="text-3xl">💌</span>
+                        <h2 class="font-cursive text-4xl sm:text-5xl text-pink-300 mt-4">Pesan Cinta</h2>
+                        <div class="gold-divider w-40 mx-auto mt-4"></div>
+                    </div>
+                    <div class="bg-white/5 backdrop-blur-sm rounded-2xl p-6 sm:p-10 border border-pink-500/10">
+                        <p id="typingText"
+                            class="font-serif text-lg sm:text-xl text-pink-100 leading-relaxed typing-cursor"></p>
+                    </div>
+                </div>
+            </section><!-- GALLERY -->
+            <section class="relative py-20 px-4" style="background: linear-gradient(180deg, #1a0a2e 0%, #0f0a20 100%);">
+                <div class="max-w-3xl mx-auto section-hidden" id="gallerySection">
+                    <div class="text-center mb-12"><span class="text-3xl">📸</span>
+                        <h2 class="font-cursive text-4xl sm:text-5xl text-pink-300 mt-4">Galeri Kenangan</h2>
+                        <div class="gold-divider w-40 mx-auto mt-4"></div>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                        <div class="photo-card rounded-2xl overflow-hidden bg-white/5 border border-pink-500/10">
+                            <img src="maya-selfie.jpg" alt="Maya Selfie"
+                                class="w-full aspect-[4/3] object-cover object-top" />
+                            <p class="p-5 font-serif text-pink-200 italic text-center text-sm">"Senyum kamu selalu jadi
+                                alasan aku bahagia"</p>
+                        </div>
+                        <div class="photo-card rounded-2xl overflow-hidden bg-white/5 border border-pink-500/10">
+                            <img src="maya-couple.jpg" alt="Our Special Day"
+                                class="w-full aspect-[4/3] object-cover object-top" />
+                            <p class="p-5 font-serif text-pink-200 italic text-center text-sm">"Setiap momen sama kamu
+                                selalu berharga"</p>
+                        </div>
+                    </div>
+                </div>
+            </section><!-- REASONS -->
+            <section class="relative py-20 px-4" style="background: linear-gradient(180deg, #0f0a20 0%, #1a0a2e 100%);">
+                <div class="max-w-3xl mx-auto section-hidden" id="reasonsSection">
+                    <div class="text-center mb-12"><span class="text-3xl">💕</span>
+                        <h2 class="font-cursive text-4xl sm:text-5xl text-pink-300 mt-4">Alasan Aku Mencintaimu</h2>
+                        <div class="gold-divider w-40 mx-auto mt-4"></div>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6" id="reasonCards">
+                    </div>
+                </div>
+            </section><!-- LOVE LETTER -->
+            <section class="relative py-20 px-4" style="background: linear-gradient(180deg, #1a0a2e 0%, #2d1040 100%);">
+                <div class="max-w-2xl mx-auto section-hidden" id="letterSection">
+                    <div class="text-center mb-10"><span class="text-3xl">✉️</span>
+                        <h2 class="font-cursive text-4xl sm:text-5xl text-pink-300 mt-4">Surat Cinta</h2>
+                        <div class="gold-divider w-40 mx-auto mt-4"></div>
+                    </div>
+                    <div class="letter-paper rounded-xl p-8 sm:p-12 max-w-lg mx-auto">
+                        <p class="font-cursive text-2xl text-amber-800/80 mb-4">Untuk Maya tersayang,</p>
+                        <p id="letterBody" class="font-serif text-amber-900/70 leading-relaxed text-sm sm:text-base">Aku
+                            mungkin bukan yang sempurna, tapi aku akan selalu berusaha jadi yang terbaik untuk kamu.
+                            Kamu adalah alasan aku tersenyum setiap hari, alasan aku ingin menjadi orang yang lebih
+                            baik. Terima kasih sudah menjadi bagian terindah dalam hidupku. Aku berjanji akan selalu
+                            menjaga hatimu, menemanimu dalam suka dan duka, dan mencintaimu dengan sepenuh hatiku.
+                            Selamat ulang tahun, cintaku. Semoga semua mimpimu menjadi nyata. 💛</p>
+                        <p class="font-cursive text-xl text-amber-800/80 mt-6 text-right">Dengan cinta, ❤️</p>
+                    </div>
+                </div>
+            </section><!-- CLOSING -->
+            <section class="relative py-20 px-4"
+                style="min-height:80%; background: linear-gradient(180deg, #2d1040 0%, #1a0a2e 50%, #0a0a1a 100%); display:flex; align-items:center;">
+                <div class="max-w-2xl mx-auto text-center section-hidden" id="closingSection">
+                    <div id="burstContainer" class="relative inline-block">
+                        <h2 id="closingMsg" class="font-cursive text-5xl sm:text-7xl gradient-text leading-tight mb-6">I
+                            Love You, Maya Puspita 💖</h2>
+                    </div>
+                    <p id="ageText" class="text-pink-200 font-serif text-xl italic mb-8"></p>
+                    <div class="gold-divider w-60 mx-auto mb-8"></div><button id="replayBtn"
+                        class="px-8 py-3 rounded-full border-2 border-pink-400/50 text-pink-300 font-semibold hover:bg-pink-500/20 transition-all cursor-pointer">
+                        🔄 Putar Ulang </button>
+                </div>
+            </section>
+        </div>
+    </div>
+    <script>
+        // Config
+        const defaultConfig = {
+            hero_title: "Happy Birthday, Maya Puspita ❤️",
+            hero_subtitle: "11 Mei 2002, hari dimana dunia menjadi lebih indah karena kamu lahir",
+            love_letter_text: "Aku mungkin bukan yang sempurna, tapi aku akan selalu berusaha jadi yang terbaik untuk kamu. Kamu adalah alasan aku tersenyum setiap hari, alasan aku ingin menjadi orang yang lebih baik. Terima kasih sudah menjadi bagian terindah dalam hidupku. Aku berjanji akan selalu menjaga hatimu, menemanimu dalam suka dan duka, dan mencintaimu dengan sepenuh hatiku. Selamat ulang tahun, cintaku. Semoga semua mimpimu menjadi nyata. 💛",
+            closing_message: "I Love You, Maya Puspita 💖",
+            background_color: "#0a0a1a",
+            surface_color: "#1a0a2e",
+            text_color: "#f9a8d4",
+            primary_action_color: "#ec4899",
+            secondary_action_color: "#d4a853",
+            font_family: "Great Vibes",
+            font_size: 16
+        };
+
+        // Reasons data
+        const reasons = [
+            { emoji: "😊", text: "Senyummu menenangkan hatiku" },
+            { emoji: "🤗", text: "Kamu selalu ada di saat aku butuh" },
+            { emoji: "✨", text: "Kamu membuat hidupku lebih berarti" },
+            { emoji: "💪", text: "Kamu selalu mendukung dan menyemangatiku" },
+            { emoji: "🌸", text: "Kelembutanmu membuat dunia terasa lebih indah" },
+            { emoji: "💖", text: "Kamu adalah rumah bagi hatiku" }
+        ];
+
+        // Love message for typing
+        const loveMessage = "Terima kasih sudah hadir di hidupku, Maya. Kamu adalah hadiah terindah yang pernah aku terima dari Tuhan. Setiap hari bersamamu terasa seperti keajaiban. Senyummu mampu mengubah hari terburukku menjadi hari yang penuh warna. Semoga di umurmu sekarang, semua impianmu terwujud, semua doamu didengar, dan kebahagiaanmu berlipat ganda. Aku akan selalu ada di sisimu, mencintaimu dengan cara yang tak pernah berkurang. Selamat ulang tahun, cintaku. Kamu layak mendapatkan semua keindahan dunia ini. ❤️";
+
+        // Calculate age
+        const birthDate = new Date(2002, 4, 11);
+        const now = new Date();
+        let age = now.getFullYear() - 2002;
+        if (now.getMonth() < 4 || (now.getMonth() === 4 && now.getDate() < 11)) age--;
+
+        // Create stars
+        function createStars() {
+            const c = document.getElementById('starsContainer');
+            c.innerHTML = '';
+            for (let i = 0; i < 120; i++) {
+                const s = document.createElement('div');
+                s.className = 'star';
+                const size = Math.random() * 3 + 1;
+                s.style.cssText = `width:${size}px;height:${size}px;left:${Math.random() * 100}%;top:${Math.random() * 100}%;--dur:${Math.random() * 3 + 1}s;animation-delay:${Math.random() * 3}s;`;
+                c.appendChild(s);
+            }
+        }
+
+        // Falling petals
+        function createPetals() {
+            const petals = ['🌸', '🩷', '✿', '❀'];
+            setInterval(() => {
+                const p = document.createElement('div');
+                p.className = 'petal';
+                p.textContent = petals[Math.floor(Math.random() * petals.length)];
+                p.style.cssText = `left:${Math.random() * 100}%;top:-20px;--dur:${Math.random() * 5 + 5}s;animation-delay:${Math.random() * 2}s;`;
+                document.getElementById('app').appendChild(p);
+                setTimeout(() => p.remove(), 10000);
+            }, 800);
+        }
+
+        // Click hearts
+        document.addEventListener('click', (e) => {
+            const hearts = ['💕', '❤️', '💖', '💗', '💓'];
+            for (let i = 0; i < 3; i++) {
+                const h = document.createElement('div');
+                h.className = 'click-heart';
+                h.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                h.style.cssText = `left:${e.clientX + (Math.random() - 0.5) * 40}px;top:${e.clientY}px;font-size:${Math.random() * 16 + 16}px;`;
+                document.body.appendChild(h);
+                setTimeout(() => h.remove(), 1000);
+            }
+        });
+
+        // Typing animation
+        let typingTimeout;
+        function typeText(el, text, i = 0) {
+            if (i <= text.length) {
+                el.textContent = text.substring(0, i);
+                typingTimeout = setTimeout(() => typeText(el, text, i + 1), 30);
+            } else {
+                el.classList.remove('typing-cursor');
+            }
+        }
+
+        // Section reveal observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('section-visible');
+                    // Trigger typing when message section visible
+                    if (e.target.id === 'msgSection') {
+                        clearTimeout(typingTimeout);
+                        const el = document.getElementById('typingText');
+                        el.textContent = '';
+                        el.classList.add('typing-cursor');
+                        typeText(el, loveMessage);
+                    }
+                    // Burst hearts on closing
+                    if (e.target.id === 'closingSection') burstHearts();
+                }
+            });
+        }, { threshold: 0.3 });
+
+        // Render reasons
+        function renderReasons() {
+            const c = document.getElementById('reasonCards');
+            c.innerHTML = reasons.map((r, i) => `
+    <div class="reason-card bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-pink-500/10 text-center" style="animation: fadeInUp 0.6s ${i * 0.15}s both;">
+      <div class="text-4xl mb-3">${r.emoji}</div>
+      <p class="font-serif text-pink-200 text-sm">${r.text}</p>
+    </div>
+  `).join('');
+        }
+
+        // Burst hearts at closing
+        function burstHearts() {
+            const container = document.getElementById('burstContainer');
+            for (let i = 0; i < 20; i++) {
+                const h = document.createElement('div');
+                h.className = 'burst-heart';
+                h.textContent = ['💖', '❤️', '💕', '🩷', '💗'][Math.floor(Math.random() * 5)];
+                const angle = (Math.PI * 2 * i) / 20;
+                const dist = 80 + Math.random() * 120;
+                h.style.cssText = `left:50%;top:50%;font-size:${Math.random() * 14 + 14}px;--tx:${Math.cos(angle) * dist}px;--ty:${Math.sin(angle) * dist}px;--dur:${Math.random() + 1}s;animation-delay:${Math.random() * 0.5}s;`;
+                container.appendChild(h);
+                setTimeout(() => h.remove(), 2000);
+            }
+        }
+
+        // Background music
+        let bgAudio = new Audio("bersamamu.mp3");
+        bgAudio.loop = true;
+
+        function playMusic() {
+            try {
+                bgAudio.play();
+            } catch (e) { console.error("Audio playback failed", e); }
+        }
+
+        // Start experience
+        let started = false;
+        document.getElementById('startBtn').addEventListener('click', () => {
+            if (started) return;
+            started = true;
+            playMusic();
+            createPetals();
+            document.getElementById('contentSections').classList.remove('hidden');
+            document.getElementById('heroSection').style.minHeight = 'auto';
+
+            // Smooth scroll to message
+            setTimeout(() => {
+                document.getElementById('contentSections').scrollIntoView({ behavior: 'smooth' });
+            }, 300);
+
+            // Observe sections
+            ['msgSection', 'gallerySection', 'reasonsSection', 'letterSection', 'closingSection'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) observer.observe(el);
+            });
+        });
+
+        // Replay
+        document.getElementById('replayBtn').addEventListener('click', () => {
+            started = false;
+            document.getElementById('contentSections').classList.add('hidden');
+            document.querySelectorAll('.section-hidden').forEach(el => el.classList.remove('section-visible'));
+            document.getElementById('typingText').textContent = '';
+            document.getElementById('heroSection').style.minHeight = '100%';
+            document.getElementById('heroSection').scrollIntoView({ behavior: 'smooth' });
+            if (bgAudio) { bgAudio.pause(); bgAudio.currentTime = 0; }
+        });
+
+        // Init
+        createStars();
+        renderReasons();
+        document.getElementById('ageText').textContent = `Selamat ulang tahun yang ke-${age}, semoga bahagia selalu 🎉`;
+
+        // Element SDK
+        function applyConfig(config) {
+            const c = { ...defaultConfig, ...config };
+            document.getElementById('heroTitle').textContent = c.hero_title;
+            document.getElementById('heroSubtitle').textContent = c.hero_subtitle;
+            document.getElementById('letterBody').textContent = c.love_letter_text;
+            document.getElementById('closingMsg').textContent = c.closing_message;
+
+            // Font
+            const ff = c.font_family || defaultConfig.font_family;
+            document.querySelectorAll('.font-cursive').forEach(el => {
+                el.style.fontFamily = `${ff}, Great Vibes, cursive`;
+            });
+
+            // Font size
+            const bs = c.font_size || defaultConfig.font_size;
+            document.querySelectorAll('.font-serif').forEach(el => { el.style.fontSize = `${bs}px`; });
+            document.querySelectorAll('.font-cursive').forEach(el => { el.style.fontSize = ''; }); // keep cursive sizing from CSS
+
+            // Colors
+            document.getElementById('app').style.background = c.background_color;
+            document.querySelectorAll('.font-serif, .font-body').forEach(el => {
+                if (!el.closest('.letter-paper')) el.style.color = c.text_color;
+            });
+        }
+
+        window.elementSdk.init({
+            defaultConfig,
+            onConfigChange: async (config) => applyConfig(config),
+            mapToCapabilities: (config) => ({
+                recolorables: [
+                    { get: () => config.background_color || defaultConfig.background_color, set: v => { config.background_color = v; window.elementSdk.setConfig({ background_color: v }); } },
+                    { get: () => config.surface_color || defaultConfig.surface_color, set: v => { config.surface_color = v; window.elementSdk.setConfig({ surface_color: v }); } },
+                    { get: () => config.text_color || defaultConfig.text_color, set: v => { config.text_color = v; window.elementSdk.setConfig({ text_color: v }); } },
+                    { get: () => config.primary_action_color || defaultConfig.primary_action_color, set: v => { config.primary_action_color = v; window.elementSdk.setConfig({ primary_action_color: v }); } },
+                    { get: () => config.secondary_action_color || defaultConfig.secondary_action_color, set: v => { config.secondary_action_color = v; window.elementSdk.setConfig({ secondary_action_color: v }); } }
+                ],
+                borderables: [],
+                fontEditable: {
+                    get: () => config.font_family || defaultConfig.font_family,
+                    set: v => { config.font_family = v; window.elementSdk.setConfig({ font_family: v }); }
+                },
+                fontSizeable: {
+                    get: () => config.font_size || defaultConfig.font_size,
+                    set: v => { config.font_size = v; window.elementSdk.setConfig({ font_size: v }); }
+                }
+            }),
+            mapToEditPanelValues: (config) => new Map([
+                ["hero_title", config.hero_title || defaultConfig.hero_title],
+                ["hero_subtitle", config.hero_subtitle || defaultConfig.hero_subtitle],
+                ["love_letter_text", config.love_letter_text || defaultConfig.love_letter_text],
+                ["closing_message", config.closing_message || defaultConfig.closing_message]
+            ])
+        });
+
+        lucide.createIcons();
+    </script>
+    <script>(function () { function c() { var b = a.contentDocument || a.contentWindow.document; if (b) { var d = b.createElement('script'); d.innerHTML = "window.__CF$cv$params={r:'9f9c05afa6f9ce1d',t:'MTc3ODQ0ODM4Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);"; b.getElementsByTagName('head')[0].appendChild(d) } } if (document.body) { var a = document.createElement('iframe'); a.height = 1; a.width = 1; a.style.position = 'absolute'; a.style.top = 0; a.style.left = 0; a.style.border = 'none'; a.style.visibility = 'hidden'; document.body.appendChild(a); if ('loading' !== document.readyState) c(); else if (window.addEventListener) document.addEventListener('DOMContentLoaded', c); else { var e = document.onreadystatechange || function () { }; document.onreadystatechange = function (b) { e(b); 'loading' !== document.readyState && (document.onreadystatechange = e, c()) } } } })();</script>
+</body>
+
+</html>
