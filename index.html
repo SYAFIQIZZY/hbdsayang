@@ -7,6 +7,7 @@
     <title>Happy Birthday Maya Puspita ❤️</title>
     <script src="https://cdn.tailwindcss.com/3.4.17"></script>
     <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
     <script src="/_sdk/element_sdk.js"></script>
     <link
         href="https://fonts.googleapis.com/css2?family=Great+Vibes&amp;family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&amp;family=Quicksand:wght@300;400;500;600&amp;display=swap"
@@ -58,19 +59,13 @@
             position: absolute;
             background: white;
             border-radius: 50%;
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.8), 0 0 15px rgba(255, 255, 255, 0.5);
             animation: twinkle var(--dur) ease-in-out infinite alternate;
         }
 
         @keyframes twinkle {
-            0% {
-                opacity: 0.1;
-                transform: scale(0.8);
-            }
-
-            100% {
-                opacity: 1;
-                transform: scale(1.2);
-            }
+            0% { opacity: 0.2; transform: scale(0.6); }
+            100% { opacity: 1; transform: scale(1.3); }
         }
 
         /* Floating hearts */
@@ -80,18 +75,12 @@
             z-index: 1;
             animation: floatUp var(--dur) ease-in forwards;
             opacity: 0;
+            filter: drop-shadow(0 0 10px rgba(244, 114, 182, 0.5));
         }
 
         @keyframes floatUp {
-            0% {
-                opacity: 1;
-                transform: translateY(0) scale(1) rotate(0deg);
-            }
-
-            100% {
-                opacity: 0;
-                transform: translateY(-400px) scale(0.3) rotate(45deg);
-            }
+            0% { opacity: 1; transform: translateY(0) scale(1) rotate(0deg); }
+            100% { opacity: 0; transform: translateY(-400px) scale(0.3) rotate(45deg); }
         }
 
         /* Click hearts */
@@ -100,18 +89,12 @@
             pointer-events: none;
             z-index: 999;
             animation: clickPop 1s ease-out forwards;
+            filter: drop-shadow(0 0 15px rgba(244, 114, 182, 0.8));
         }
 
         @keyframes clickPop {
-            0% {
-                opacity: 1;
-                transform: translateY(0) scale(0.5);
-            }
-
-            100% {
-                opacity: 0;
-                transform: translateY(-120px) scale(1.5);
-            }
+            0% { opacity: 1; transform: translateY(0) scale(0.5); }
+            100% { opacity: 0; transform: translateY(-120px) scale(1.5); }
         }
 
         /* Falling petals */
@@ -121,19 +104,58 @@
             z-index: 1;
             font-size: 1.2rem;
             animation: petalFall var(--dur) linear infinite;
+            filter: drop-shadow(0 0 5px rgba(255, 192, 203, 0.5));
         }
 
         @keyframes petalFall {
             0% {
-                transform: translateY(-20px) rotate(0deg);
-                opacity: 0.8;
+                transform: translate(0, -20px) rotate(0deg);
+                opacity: 0;
             }
-
+            10% { opacity: 0.9; }
             100% {
-                transform: translateY(calc(100% + 100px)) rotate(360deg);
+                transform: translate(var(--sway), calc(100vh + 100px)) rotate(720deg);
                 opacity: 0;
             }
         }
+        
+        /* Music Widget */
+        .music-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 30px;
+            padding: 8px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #f9a8d4;
+            font-weight: 600;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+            cursor: pointer;
+        }
+        .music-widget:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px) scale(1.02);
+        }
+        .music-widget.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .music-bars { display: flex; gap: 3px; height: 15px; align-items: flex-end; }
+        .music-bar { width: 3px; background: #f9a8d4; border-radius: 2px; }
+        .playing .music-bar { animation: sound 400ms alternate infinite; }
+        .playing .music-bar:nth-child(1) { animation-delay: 0ms; }
+        .playing .music-bar:nth-child(2) { animation-delay: 100ms; }
+        .playing .music-bar:nth-child(3) { animation-delay: 200ms; }
+        @keyframes sound { 0% { height: 3px; } 100% { height: 15px; } }
 
         /* Section transitions */
         .section-hidden {
@@ -270,7 +292,15 @@
 </head>
 
 <body class="h-full">
-    <div class="app-wrapper font-body" id="app"><!-- Stars BG -->
+    <div class="app-wrapper font-body" id="app">
+        <!-- Music Widget -->
+        <div id="musicWidget" class="music-widget">
+            <div class="music-bars">
+                <div class="music-bar"></div><div class="music-bar"></div><div class="music-bar"></div>
+            </div>
+            <span class="text-sm" style="font-family: 'Quicksand', sans-serif;">Jaz - Bersamamu</span>
+        </div>
+        <!-- Stars BG -->
         <div class="stars-container" id="starsContainer"></div><!-- HERO SECTION -->
         <section id="heroSection" class="relative flex items-center justify-center text-center px-4"
             style="min-height:100%; background: linear-gradient(180deg, #0a0a1a 0%, #1a0a2e 50%, #2d1040 100%);">
@@ -308,13 +338,13 @@
                         <div class="gold-divider w-40 mx-auto mt-4"></div>
                     </div>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
-                        <div class="photo-card rounded-2xl overflow-hidden bg-white/5 border border-pink-500/10">
+                        <div class="photo-card rounded-2xl overflow-hidden bg-white/5 border border-pink-500/10" data-tilt data-tilt-max="8" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.2">
                             <img src="maya-selfie.jpg" alt="Maya Selfie"
                                 class="w-full aspect-[4/3] object-cover object-top" />
                             <p class="p-5 font-serif text-pink-200 italic text-center text-sm">"Senyum kamu selalu jadi
                                 alasan aku bahagia"</p>
                         </div>
-                        <div class="photo-card rounded-2xl overflow-hidden bg-white/5 border border-pink-500/10">
+                        <div class="photo-card rounded-2xl overflow-hidden bg-white/5 border border-pink-500/10" data-tilt data-tilt-max="8" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.2">
                             <img src="maya-couple.jpg" alt="Our Special Day"
                                 class="w-full aspect-[4/3] object-cover object-top" />
                             <p class="p-5 font-serif text-pink-200 italic text-center text-sm">"Setiap momen sama kamu
@@ -416,15 +446,16 @@
 
         // Falling petals
         function createPetals() {
-            const petals = ['🌸', '🩷', '✿', '❀'];
+            const petals = ['🌸', '🩷', '✿', '❀', '✨'];
             setInterval(() => {
                 const p = document.createElement('div');
                 p.className = 'petal';
                 p.textContent = petals[Math.floor(Math.random() * petals.length)];
-                p.style.cssText = `left:${Math.random() * 100}%;top:-20px;--dur:${Math.random() * 5 + 5}s;animation-delay:${Math.random() * 2}s;`;
+                const sway = (Math.random() - 0.5) * 250;
+                p.style.cssText = `left:${Math.random() * 100}%;top:-20px;--dur:${Math.random() * 6 + 6}s;--sway:${sway}px;animation-delay:${Math.random() * 2}s;`;
                 document.getElementById('app').appendChild(p);
-                setTimeout(() => p.remove(), 10000);
-            }, 800);
+                setTimeout(() => p.remove(), 12000);
+            }, 500);
         }
 
         // Click hearts
@@ -474,11 +505,14 @@
         function renderReasons() {
             const c = document.getElementById('reasonCards');
             c.innerHTML = reasons.map((r, i) => `
-    <div class="reason-card bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-pink-500/10 text-center" style="animation: fadeInUp 0.6s ${i * 0.15}s both;">
-      <div class="text-4xl mb-3">${r.emoji}</div>
+    <div class="reason-card bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-pink-500/10 text-center" style="animation: fadeInUp 0.6s ${i * 0.15}s both;" data-tilt data-tilt-max="15" data-tilt-scale="1.05">
+      <div class="text-4xl mb-3 drop-shadow-lg">${r.emoji}</div>
       <p class="font-serif text-pink-200 text-sm">${r.text}</p>
     </div>
   `).join('');
+            if (typeof VanillaTilt !== 'undefined') {
+                VanillaTilt.init(document.querySelectorAll(".reason-card"));
+            }
         }
 
         // Burst hearts at closing
@@ -499,10 +533,22 @@
         // Background music
         let bgAudio = new Audio("bersamamu.mp3");
         bgAudio.loop = true;
+        
+        const musicWidget = document.getElementById('musicWidget');
+        musicWidget.addEventListener('click', () => {
+            if (bgAudio.paused) {
+                bgAudio.play();
+                musicWidget.classList.add('playing');
+            } else {
+                bgAudio.pause();
+                musicWidget.classList.remove('playing');
+            }
+        });
 
         function playMusic() {
             try {
                 bgAudio.play();
+                musicWidget.classList.add('visible', 'playing');
             } catch (e) { console.error("Audio playback failed", e); }
         }
 
