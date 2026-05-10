@@ -522,11 +522,14 @@
                     e.target.classList.add('section-visible');
                     // Trigger typing when message section visible
                     if (e.target.id === 'msgSection') {
-                        clearTimeout(typingTimeout);
                         const el = document.getElementById('typingText');
-                        el.textContent = '';
-                        el.classList.add('typing-cursor');
-                        typeText(el, loveMessage);
+                        if (!el.dataset.typed) {
+                            el.dataset.typed = 'true';
+                            clearTimeout(typingTimeout);
+                            el.textContent = '';
+                            el.classList.add('typing-cursor');
+                            typeText(el, loveMessage);
+                        }
                     }
                     // Burst hearts on closing
                     if (e.target.id === 'closingSection') burstHearts();
@@ -612,7 +615,9 @@
             started = false;
             document.getElementById('contentSections').classList.add('hidden');
             document.querySelectorAll('.section-hidden').forEach(el => el.classList.remove('section-visible'));
-            document.getElementById('typingText').textContent = '';
+            const el = document.getElementById('typingText');
+            el.textContent = '';
+            delete el.dataset.typed;
             document.getElementById('heroSection').style.minHeight = '100%';
             document.getElementById('heroSection').scrollIntoView({ behavior: 'smooth' });
             if (bgAudio) { bgAudio.pause(); bgAudio.currentTime = 0; }
